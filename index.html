@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Question</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe4e1; /* Light Pink */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+
+        #container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 { color: #ff4d6d; }
+
+        .buttons {
+            margin-top: 20px;
+            position: relative;
+            height: 100px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            margin-right: 10px;
+        }
+
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: absolute;
+        }
+
+        img {
+            width: 200px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <img id="displayImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXN2YXA1ZzRyeHh6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute gif">
+        <h1 id="question">Will you be my Valentine? ❤️</h1>
+        
+        <div class="buttons">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const question = document.getElementById('question');
+        const img = document.getElementById('displayImg');
+
+        // The "Runaway" Logic
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        // The "Yes" Logic
+        yesBtn.addEventListener('click', () => {
+            question.innerHTML = "Yay! See you then! 🥰";
+            img.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW81Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/MDJ9IbxxvDUQM/giphy.gif";
+            noBtn.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
