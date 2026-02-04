@@ -3,69 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Question</title>
+    <title>A Special Surprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffe4e1; /* Light Pink */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
+            background-color: #4a0e2e;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
         }
 
         #container {
-            background: white;
+            background: #fffafa;
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            width: 320px;
+            height: 500px;
+            text-align: center;
+            /* This is the secret sauce: it traps all absolute children */
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        h1 { color: #ff4d6d; }
-
-        .buttons {
-            margin-top: 20px;
-            position: relative;
-            height: 100px;
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        #yesBtn {
-            background-color: #ff4d6d;
-            color: white;
-            margin-right: 10px;
-        }
-
-        #noBtn {
-            background-color: #adb5bd;
-            color: white;
-            position: absolute;
+        h1 { 
+            color: #8e1b54; 
+            font-family: 'Pacifico', cursive;
+            font-size: 22px; 
+            margin: 10px 0;
+            pointer-events: none; /* Mouse ignores text when button moves under it */
         }
 
         img {
             width: 200px;
-            border-radius: 10px;
+            height: 200px;
+            object-fit: contain;
+            pointer-events: none;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            width: 100%;
+            height: 150px; /* Area where the button can jump */
+            position: relative;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            position: absolute; /* Both buttons absolute to control them inside the box */
+        }
+
+        #yesBtn {
+            background-color: #c9a050;
+            color: white;
+            left: 50px;
+            top: 20px;
+        }
+
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+            left: 170px;
+            top: 20px;
+            transition: 0.1s ease;
         }
     </style>
 </head>
 <body>
 
     <div id="container">
-        <img id="displayImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXN2YXA1ZzRyeHh6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute gif">
         <h1 id="question">Will you be my Valentine? ❤️</h1>
+        <img id="displayImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmY4bmZzZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/vguRp937H11K7K6mI6/giphy.gif" alt="Waiting">
         
-        <div class="buttons">
+        <div class="buttons" id="buttonArea">
             <button id="yesBtn">Yes</button>
             <button id="noBtn">No</button>
         </div>
@@ -74,25 +96,47 @@
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
+        const buttonArea = document.getElementById('buttonArea');
         const question = document.getElementById('question');
         const img = document.getElementById('displayImg');
 
-        // The "Runaway" Logic
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        const moveButton = () => {
+            // Get the width and height of the buttonArea div
+            const areaWidth = buttonArea.clientWidth;
+            const areaHeight = buttonArea.clientHeight;
             
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
+            // Get button dimensions
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            // Calculate new positions within the bounds of buttonArea
+            const newLeft = Math.floor(Math.random() * (areaWidth - btnWidth));
+            const newTop = Math.floor(Math.random() * (areaHeight - btnHeight));
+
+            noBtn.style.left = `${newLeft}px`;
+            noBtn.style.top = `${newTop}px`;
+        };
+
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveButton();
         });
 
-        // The "Yes" Logic
         yesBtn.addEventListener('click', () => {
-            question.innerHTML = "Yay! See you then! 🥰";
-            img.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW81Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/MDJ9IbxxvDUQM/giphy.gif";
+            question.innerHTML = "I knew you'd say yes! 🥰✨";
+            img.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ4bmZzZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/l41lTfuxOSK1H88j6/giphy.gif";
             noBtn.style.display = 'none';
+            yesBtn.style.left = "50%";
+            yesBtn.style.transform = "translateX(-50%)";
+            
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#c9a050', '#8e1b54', '#ffffff']
+            });
         });
     </script>
 </body>
 </html>
-
