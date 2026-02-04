@@ -12,57 +12,62 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffe4e1; /* Light Pink */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #4a0e2e; /* Deep Plum */
+            font-family: 'Poppins', sans-serif;
             text-align: center;
         }
 
         #container {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: #fffafa;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            max-width: 400px;
         }
 
-        h1 { color: #ff4d6d; }
+        h1 { color: #8e1b54; font-size: 24px; }
 
         .buttons {
-            margin-top: 20px;
+            margin-top: 30px;
             position: relative;
-            height: 100px;
+            height: 120px;
         }
 
         button {
-            padding: 15px 30px;
+            padding: 15px 35px;
             font-size: 18px;
+            font-weight: bold;
             border: none;
-            border-radius: 10px;
+            border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
         }
 
         #yesBtn {
-            background-color: #ff4d6d;
+            background-color: #c9a050; /* Gold */
             color: white;
-            margin-right: 10px;
+            box-shadow: 0 4px 15px rgba(201, 160, 80, 0.4);
         }
 
         #noBtn {
-            background-color: #adb5bd;
+            background-color: #6c757d;
             color: white;
             position: absolute;
+            left: 55%; /* Start next to Yes */
         }
 
         img {
-            width: 200px;
-            border-radius: 10px;
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+            border-radius: 20px;
         }
     </style>
 </head>
 <body>
 
     <div id="container">
-        <img id="displayImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXN2YXA1ZzRyeHh6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/cLS1cfxvGOPVpf9g3y/giphy.gif" alt="Cute gif">
+        <img id="displayImg" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmY4bmZzZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/vguRp937H11K7K6mI6/giphy.gif" alt="Waiting">
         <h1 id="question">Will you be my Valentine? ❤️</h1>
         
         <div class="buttons">
@@ -88,9 +93,11 @@
 
         // The "Yes" Logic
         yesBtn.addEventListener('click', () => {
-            question.innerHTML = "Yay! See you then! 🥰";
-            img.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW81Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/MDJ9IbxxvDUQM/giphy.gif";
+            question.innerHTML = "I knew you'd say yes! 🥰✨";
+            // Success GIF: Happy couple/character
+            img.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ4bmZzZ3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6Z3R6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/l41lTfuxOSK1H88j6/giphy.gif";
             noBtn.style.display = 'none';
+            yesBtn.style.transform = "scale(1.2)";
         });
     </script>
 </body>
